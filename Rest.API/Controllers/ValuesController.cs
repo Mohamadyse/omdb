@@ -21,7 +21,7 @@ namespace Rest.API.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            return BadRequest();
         }
 
         // POST api/values
