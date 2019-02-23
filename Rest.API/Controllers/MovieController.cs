@@ -25,10 +25,17 @@ namespace Rest.API.Controllers
         /// TODO: Add query parameters to the GET method, and pass them to the movie repository
         /// TODO: Check the example.json file for the movie format
         /// </summary>
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("{queryString}")]
+        public async Task<Movie> Get(string queryString)
         {
-            return Ok();
+           var movie=await _movieRepository.GetMovie(queryString);
+           if (movie==null)
+           {
+               NotFound();
+           }
+
+       
+           return movie;
         }
     }
 }
