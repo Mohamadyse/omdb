@@ -24,14 +24,15 @@ namespace Core.Repositories
 
         public async Task<Movie> GetMovie(string queryParameters)
         {
-            var url = $"{BaseUrl}?apikey={ApiKey}{queryParameters}";
+            var url = $"{BaseUrl}?apikey={ApiKey}&{queryParameters}";
             var movie = new Movie();
 
             // för att HttpCient är disposal är det bättre att använda using istället
             using (HttpClient _httpClient = new HttpClient())
+            {
                 try
                 {
-                  
+
                     using (var responseMessage = await _httpClient.GetAsync(url))
                     {
 
@@ -39,7 +40,7 @@ namespace Core.Repositories
 
                         JObject json = JObject.Parse(content);
 
-                         movie = json.ToObject<Movie>();
+                        movie = json.ToObject<Movie>();
 
 
                         // Remove this and instead map JSON from the response to a list of the actual model "Movie"
@@ -54,7 +55,10 @@ namespace Core.Repositories
                     // Log and handle the exception
                     _logger.LogDebug(ex.Message);
                     Console.WriteLine(ex.GetType().ToString(), ex.Message);
+
                 }
+            }
+
             return movie;
         }
     }
