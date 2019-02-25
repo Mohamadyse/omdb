@@ -28,8 +28,8 @@ namespace Rest.API.Controllers
         [HttpGet("{queryString}")]
         public async Task<Movie> Get(string queryString)
         {
-           var movie=await _movieRepository.GetMovie(queryString);
-           if (movie==null)
+           var movie = await _movieRepository.GetMovie(queryString);
+           if (movie == null)
            {
                NotFound();
            }
